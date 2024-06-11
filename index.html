@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script> 
+    <style>
+    #myDIV {
+      width: 100%;
+      padding: 50px 0;
+      text-align: center;
+      background-color: lightblue;
+      margin-top: 20px;
+      display: none;
+    }
+    </style>
+  </head>
+  <body>
+    
+    <p>Klik Tombol dibawah ini</p>
+    <button onclick="myFunction()">Buka</button>
+    <div id="myDIV">
+        <center><h2><p><span style="background-color:yellow;" >ABSEN MASUK</span></p></h2><table id="example1" class="table table-striped table-bordered " cellspacing="0" style="width:50%" align="center"><thead><tr><th>No</th><th>Tanggal</th><th>Jam</th></thead><tbody><tr><td>1</td><td><input type="text" id="tanggal1" name="tanggal1" placeholder="28/05/2024"></td><td><input type="text" id="jam1" name="jam1" placeholder="17:47:22"></td></tr><tr>  </tr></tbody></table>    <button id="buttonmasuk" type="submit" class="btn btn-success btn-blockstyle="width:50%" ><i class="fa fa-camera"></i> Absen Masuk</button>     <hr> <center><h2><p><span style="background-color:yellow;" >ABSEN PULANG</span></p></h2><table id="example1" class="table table-striped table-bordered " cellspacing="0" style="width:50%" align="center"><thead><tr><th>No</th><th>Tanggal</th><th>Jam</th></thead><tbody><tr><td>1</td><td><input type="text" id="tanggal2" name="tanggal2" placeholder="28/05/2024"></td><td><input type="text" id="jam2" name="jam2"  placeholder="17:47:22"></td></tr><tr>  </tr></tbody></table>    <button id="buttonpulang" type="submit" class="btn btn-warning btn-blockstyle="width:50%" ><i class="fa fa-camera"></i> Absen Pulang</button>    
+    </div>
+
+
+    <script>
+    function myFunction() {
+      var x = document.getElementById("myDIV");
+      if (x.style.display === "block") {
+        x.style.display = "none";
+      } else {
+        x.style.display = "block";
+      }
+    }
+    </script>
+
+    <script>
+        
+        $('#buttonmasuk').on('click', function(){
+
+    var txtT1 = $('#tanggal1').val();
+    var txtW1 = $('#jam1').val();
+    var simpanPresensi = 'https://persuratan.atrbpn.go.id/Account/simpanPresensi';
+    var lonData = "105.525769";
+    var latData = "-5.044095";
+    var txtTanggal = txtT1 + " " + txtW1;
+    var accData = "2";
+    var ipAddress = "180.251.77.253";
+                      
+
+
+    $.ajax({
+        type: "POST",
+        url: simpanPresensi,
+        data: { pLong: lonData, pLat: latData, pWaktu: txtTanggal, pAcc: accData, pIp: ipAddress },
+        success: function (data) {
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+        }
+    });
+    })
+
+    $('#buttonpulang').on('click', function(){
+
+    var txtT2 = $('#tanggal2').val();
+    var txtW2 = $('#jam2').val();
+    var simpanPresensi = 'https://persuratan.atrbpn.go.id/Account/simpanPresensi';
+    var lonData2 = "105.525769";
+    var latData2 = "-5.044095";
+    var txtTanggal2 = txtT2 + " " + txtW2;
+    var accData2 = "2";
+    var ipAddress2 = "180.251.77.253";
+
+          
+
+    $.ajax({
+        type: "POST",
+        url: simpanPresensi,
+        data: { pLong: lonData2, pLat: latData2, pWaktu: txtTanggal2, pAcc: accData2, pIp: ipAddress2 },
+        success: function (data) {
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+        }
+    });
+
+
+    })
+    </script>
+
+  </body>
+</html>
+
+
+
