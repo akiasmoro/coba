@@ -14,18 +14,53 @@
       margin-top: 20px;
       display: none;
     }
+    #myDIV1 {
+      width: 100%;
+      padding: 50px 0;
+      text-align: center;
+      background-color: lightblue;
+      margin-top: 20px;
+      display: none;
+    }
     </style>
   </head>
   <body>
     
     <p>Klik Tombol dibawah ini</p>
-    <button onclick="myFunction()">Buka</button>
+    <button onclick="myFunction1()">Login</button>
+    <button onclick="myFunction()">Absen</button>
     <div id="myDIV">
         <center><h2><p><span style="background-color:yellow;" >ABSEN MASUK</span></p></h2><table id="example1" class="table table-striped table-bordered " cellspacing="0" style="width:50%" align="center"><thead><tr><th>No</th><th>Tanggal</th><th>Jam</th></thead><tbody><tr><td>1</td><td><input type="text" id="tanggal1" name="tanggal1" placeholder="28/05/2024"></td><td><input type="text" id="jam1" name="jam1" placeholder="17:47:22"></td></tr><tr>  </tr></tbody></table>    <button id="buttonmasuk" type="submit" class="btn btn-success btn-blockstyle="width:50%" ><i class="fa fa-camera"></i> Absen Masuk</button>     <hr> <center><h2><p><span style="background-color:yellow;" >ABSEN PULANG</span></p></h2><table id="example1" class="table table-striped table-bordered " cellspacing="0" style="width:50%" align="center"><thead><tr><th>No</th><th>Tanggal</th><th>Jam</th></thead><tbody><tr><td>1</td><td><input type="text" id="tanggal2" name="tanggal2" placeholder="28/05/2024"></td><td><input type="text" id="jam2" name="jam2"  placeholder="17:47:22"></td></tr><tr>  </tr></tbody></table>    <button id="buttonpulang" type="submit" class="btn btn-warning btn-blockstyle="width:50%" ><i class="fa fa-camera"></i> Absen Pulang</button>    
     </div>
+    <div id="myDIV1">
+ 
+      
+      <iframe src="https://persuratan.atrbpn.go.id/"width="300px" height="300px">
+
+
+      </iframe>
+
+
+    </div>
+
+
+
+
+
+
+
+
 
 
     <script>
+    function myFunction1() {
+      var x = document.getElementById("myDIV1");
+      if (x.style.display === "block") {
+        x.style.display = "none";
+      } else {
+        x.style.display = "block";
+      }
+    }
     function myFunction() {
       var x = document.getElementById("myDIV");
       if (x.style.display === "block") {
@@ -35,6 +70,92 @@
       }
     }
     </script>
+
+
+
+<script>
+
+$('#toggleHide').hide()
+    $('#toggleShow').on('click', function() {
+        $('#inputPassword').get(0).type = 'text';
+        $('#toggleShow').hide();
+        $('#toggleHide').show();
+    })
+    $('#toggleHide').on('click', function() {
+        $('#inputPassword').get(0).type = 'password';
+        $('#toggleHide').hide();
+        $('#toggleShow').show();
+    })
+
+    $('#username, #inputPassword').on('keypress', function (e) {
+        if(e.which == 13) {
+            login();
+
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    function login() {
+        $("input").blur();
+        $("body").addClass("loading");
+
+        $('#error-div').removeClass();
+        $('#error-div').hide();
+
+        var publicapi = 'https://logininternal.atrbpn.go.id/auth/realms/internal/protocol/openid-connect/token';
+        $.post(publicapi, {
+                'username': $('#username').val().trim(),
+                'password': $('#inputPassword').val().trim(),
+                'client_id': 'public-client',
+                'scope': 'openid',
+                'grant_type': 'password'
+            },
+            function(response) {
+                $("#kantor").empty();
+                $.each(response.kantor, function(i, item) {
+                    $("#kantor").append('<option value="'+item.kantorid+'">'+item.kantorname+'</option>');
+                });
+
+                $("body").removeClass("loading");
+                $("#username-field").hide();
+                $("#password-field").hide();
+                $("#kc-form-buttons-01").hide();
+
+                $('#kc-form-buttons').show();
+                $('#otp-field').show();
+                $('#kantor-field').show();
+
+                $('#error-text').text("OTP terkirim ke "+response.to);
+                $('#error-div').addClass("alert alert-info");
+                $('#error-div').show();
+            })
+            .fail(function(xhr, status, error) {
+                $("body").removeClass("loading");
+                $('#error-text').text("Username atau Password salah.");
+                $('#error-div').addClass("alert alert-danger");
+                $('#error-div').show();
+            });
+    }
+
+    $('#kc-next').on('click', function (e) {
+        login();
+    });
+
+    $('#kc-form-login').submit(function() {
+        $("input").blur();
+        $("body").addClass("loading");
+    });
+
+        $('#error-div').hide();
+
+        $('#kc-form-buttons').hide();
+        $('#otp-field').hide();
+        $('#kantor-field').hide();
+
+</script>
+
+
 
     <script>
         
