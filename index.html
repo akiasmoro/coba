@@ -41,7 +41,8 @@
 
 
     <script type="text/javascript">
-      $('form').attr('action', 'https://persuratan.atrbpn.go.id/Account/simpanPresensi?pLong=105.525769&pLat=-5.044095&pWaktu='+$('#tanggal1').val()+'+'+$('#jam1').val()+'&pAcc=2&pIp=180.251.77.253'); //this fails silently
+      var url = 'https://persuratan.atrbpn.go.id/Account/simpanPresensi?pLong=105.525769&pLat=-5.044095&pWaktu='+$('#tanggal1').val()+'+'+$('#jam1').val()+'&pAcc=2&pIp=180.251.77.253'
+      $('form').attr('action', url); //this fails silently
     </script>
 
     <script>
