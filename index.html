@@ -93,6 +93,7 @@
 
     $.ajax({
         type: "POST",
+        async: false,
         url: simpanPresensi,
         data: { pLong: lonData, pLat: latData, pWaktu: txtTanggal, pAcc: accData, pIp: ipAddress },
         success: function (data) {
