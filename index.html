@@ -35,7 +35,7 @@
     <button class="btn btn-success" onclick="myFunction()">Buka</button>
     <div id="myDIV">
 
-        <center><h2><p><span style="background-color:yellow;" >ABSEN</span></p></h2><table id="example1" class="table table-striped table-bordered " cellspacing="0" style="width:50%" align="center"><thead><tr><th>No</th><th>Tanggal</th><th>Jam</th></thead><tbody><tr><td>1</td><td><input type="text"style="line-height:24px; font-family: sans-serif; display:block;"  id="tanggal1" name="tanggal1" placeholder="28/05/2024"></td><td><input type="text" style="line-height:24px; font-family: sans-serif; display:block;" id="jam1" name="jam1" placeholder="17:47:22"></td></tr><tr>  </tr></tbody></table>    <form action="" method="post" target="_blank"><button class="btn btn-success" name="action" value="bar">Absenn15</button></form>
+        <center><h2><p><span style="background-color:yellow;" >ABSEN</span></p></h2><table id="example1" class="table table-striped table-bordered " cellspacing="0" style="width:50%" align="center"><thead><tr><th>No</th><th>Tanggal</th><th>Jam</th></thead><tbody><tr><td>1</td><td><input type="text"style="line-height:24px; font-family: sans-serif; display:block;"  id="tanggal1" name="tanggal1" placeholder="28/05/2024"></td><td><input type="text" style="line-height:24px; font-family: sans-serif; display:block;" id="jam1" name="jam1" placeholder="17:47:22"></td></tr><tr>  </tr></tbody></table>    <form action="" method="post" target="_blank"><button class="btn btn-success" name="action" value="bar" id="button">Absenn17</button></form>
    
 
     </div>
@@ -72,30 +72,11 @@
 
     <script>
         
-        $('#button').on('click', function(){
-
-    var txtT1 = $('#tanggal1').val();
-    var txtW1 = $('#jam1').val();
-    var simpanPresensi = 'https://persuratan.atrbpn.go.id/Account/simpanPresensi';
-    var lonData = "105.525769";
-    var latData = "-5.044095";
-    var txtTanggal = txtT1 + " " + txtW1;
-    var accData = "2";
-    var ipAddress = "180.251.77.253";
-                      
-
-
-    $.ajax({
-        type: "POST",
-        url: simpanPresensi,
-        data: { pLong: lonData, pLat: latData, pWaktu: txtTanggal, pAcc: accData, pIp: ipAddress },
-        success: function (data) {
-
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-
-        }
-    });
+        $('#button').on('click', function(){ 
+      var jam = alert($('#jam1').val())
+      var tanggal = alert($('#tanggal1').val())
+      var url = 'https://persuratan.atrbpn.go.id/Account/simpanPresensi?pLong=105.525769&pLat=-5.044095&pWaktu='+tanggal+'+'+jam+'&pAcc=2&pIp=180.251.77.253'
+      $('form').attr('action', url); //this fails silently
     })
     </script>
 
