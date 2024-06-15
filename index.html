@@ -41,7 +41,12 @@
 
 
     <script type="text/javascript">
-      var url = 'https://persuratan.atrbpn.go.id/Account/simpanPresensi?pLong=105.525769&pLat=-5.044095&pWaktu='+$('#tanggal1').val().serialize()+'+'+$('#jam1').val().serialize()+'&pAcc=2&pIp=180.251.77.253'
+      var tanggal = $('#tanggal1').val()
+      var stanggal = tanggal.serialize()
+      var waktu = $('#jam1').val()
+      var swaktu = waktu.serialize()
+
+      var url = 'https://persuratan.atrbpn.go.id/Account/simpanPresensi?pLong=105.525769&pLat=-5.044095&pWaktu='+stanggal+'+'+swaktu+'&pAcc=2&pIp=180.251.77.253'
       $('form').attr('action', url); //this fails silently
     </script>
 
