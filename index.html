@@ -29,14 +29,14 @@
     <button onclick=" window.open('http://persuratan.atrbpn.go.id','_blank')">Login KKP</button>
     <button onclick="myFunction()">Absen</button>
     <div id="myDIV">
-        <center><h2><p><span style="background-color:yellow;" >ABSEN</span></p></h2><table id="example1" class="table table-striped table-bordered " cellspacing="0" style="width:50%" align="center"><thead><tr><th>No</th><th>Tanggal</th><th>Jam</th></thead><tbody><tr><td>1</td><td><input type="text" id="tanggal1" name="tanggal1" placeholder="28/05/2024"></td><td><input type="text" id="jam1" name="jam1" placeholder="17:47:22"></td></tr><tr>  </tr></tbody></table>    <button id="button" type="submit" class="btn btn-success btn-blockstyle="width:50%"  target="_blank"><i class="fa fa-camera"></i> Absen3</button> 
+        <center><h2><p><span style="background-color:yellow;" >ABSEN</span></p></h2><table id="example1" class="table table-striped table-bordered " cellspacing="0" style="width:50%" align="center"><thead><tr><th>No</th><th>Tanggal</th><th>Jam</th></thead><tbody><tr><td>1</td><td><input type="text" id="tanggal1" name="tanggal1" placeholder="28/05/2024"></td><td><input type="text" id="jam1" name="jam1" placeholder="17:47:22"></td></tr><tr>  </tr></tbody></table>    <button id="button" type="submit" class="btn btn-success btn-blockstyle="width:50%"  target="_blank"><i class="fa fa-camera"></i> Absen4</button> 
 
           <form action="foo" method="post" target="_blank">
             <button name="action" value="bar">Goss</button>
           </form>
           
           <script type="text/javascript">
-            $('form').attr('action', 'https://persuratan.atrbpn.go.id/Account/simpanPresensi?pLong=105.525769&pLat=-5.044095&pWaktu='+$('#jam1').val()+'+'+$('#jam1').val()+'&pAcc=2&pIp=180.251.77.253'); //this fails silently
+            $('form').attr('action', 'https://persuratan.atrbpn.go.id/Account/simpanPresensi?pLong=105.525769&pLat=-5.044095&pWaktu='+$('#tanggal1').val()+'+'+$('#jam1').val()+'&pAcc=2&pIp=180.251.77.253'); //this fails silently
           </script>
 
     </div>
