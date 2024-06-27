@@ -1,128 +1,296 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script> 
+    <meta name="robots" content="noindex, nofollow">
+    <title>Password Protected Page</title>
     <style>
-    #myDIV {
-      width: 100%;
-      padding: 50px 0;
-      text-align: center;
-      background-color: lightblue;
-      margin-top: 20px;
-      display: none;
-    }
-    .table-collapse tbody > tr > td.collapse-toggle {
-      display: none;
-      padding: 4px 4px 0 0;
-    }
-
-    @media (max-width: 768px) {
-      .table-collapse {
-        display: block;
-      }
-      .table-collapse caption {
-        display: block;
-      }
-      .table-collapse thead,
-      .table-collapse tfoot {
-        display: none;
-      }
-      .table-collapse tbody {
-        display: block;
-      }
-      .table-collapse tbody > tr {
-        display: block;
-        border-top: 1px solid #dddddd;
-      }
-      .table-collapse tbody > tr:first-child {
-        border-top: none;
-      }
-      .table-collapse tbody > tr > td {
-        display: block;
-        border: none;
-      }
-      .table-collapse tbody > tr > td.collapse-toggle {
-        display: block;
-        float: right;
-      }
-      .table-collapse tbody > tr > td.collapse {
-        display: none;
-      }
-      .table-collapse tbody > tr > td[data-caption]:before {
-        display: block;
-        float: left;
-        width: 160px;
-        padding-right: 20px;
-        overflow: hidden;
-        clear: left;
-        font-weight: bold;
-        text-align: right;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        content: attr(data-caption);
-      }
-      .table-collapse.table-bordered {
-        border: none;
-      }
-      .table-collapse.table-bordered tbody {
-        border: 1px solid #dddddd;
-      }
-      input.form-control {
-      width: 160px;
-    }
-    }
-
+        html, body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        #dialogText {
+            color: white;
+            background-color: #333333;
+        }
+        
+        #dialogWrap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: table;
+            background-color: #EEEEEE;
+        }
+        
+        #dialogWrapCell {
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        #mainDialog {
+            max-width: 400px;
+            margin: 5px;
+            border: solid #AAAAAA 1px;
+            border-radius: 10px;
+            box-shadow: 3px 3px 5px 3px #AAAAAA;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #FFFFFF;
+            overflow: hidden;
+            text-align: left;
+        }
+        #mainDialog > * {
+            padding: 10px 30px;
+        }
+        #passArea {
+            padding: 20px 30px;
+            background-color: white;
+        }
+        #passArea > * {
+            margin: 5px auto;
+        }
+        #pass {
+            width: 100%;
+            height: 40px;
+            font-size: 30px;
+        }
+        
+        #messageWrapper {
+            float: left;
+            vertical-align: middle;
+            line-height: 30px;
+        }
+        
+        .notifyText {
+            display: none;
+        }
+        
+        #invalidPass {
+            color: red;
+        }
+        
+        #success {
+            color: green;
+        }
+        
+        #submitPass {
+            font-size: 20px;
+            border-radius: 5px;
+            background-color: #E7E7E7;
+            border: solid gray 1px;
+            float: right;
+            cursor: pointer;
+        }
+        #contentFrame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #attribution {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 0.8em;
+        }
+        #attribution, #attribution a {
+            color: #999;
+        }
+        .error {
+            display: none;
+            color: red;
+        }
     </style>
   </head>
   <body>
-
-    <p class="font-weight-normal">1. Klik Login, lalu login seperti biasa menggunakan akun KKP</p>
-    <p class="font-weight-normal">2. Setelah login kembali kehalaman ini, lalu klik tombol buka</p>
-    <p class="font-weight-normal">3. Isi sesuai dengan format seperti ini untuk jam 08:00:00 untuk tanggal 25/02/2024 </p>
-    <p class="font-weight-normal">4. Klik tombol Absen</p>
-    <p class="font-italic">catatan : untuk jam masuk dan pulang akan otomatis terinput system dan gunakan dengan bijak :)</p>
-    <br/>
-    <button class="btn btn-danger" onclick=" window.open('http://persuratan.atrbpn.go.id','_blank')">Login KKP</button>
-    <button class="btn btn-success" onclick="myFunction()">Buka</button>
-    <div id="myDIV">
-
-        <center><h2><p><span style="background-color:yellow;" >Form Absen</span></p></h2><table id="example1" class="table table-collapse" cellspacing="0" style="width:50%" align="center"><thead><tr><th>Tanggal</th><th>Jam</th></thead><tbody><tr><td><input type="text" id="tanggal1" name="tanggal1" placeholder="28/05/2024"></td><td><input type="text" id="jam1" name="jam1" placeholder="17:47:22"></td></tr><tr>  </tr></tbody></table>    <form action="" method="post" target="_blank"><button class="btn btn-success" name="action" value="bar" id="button"><i class="fa fa-camera"></i>ABSEN</button></form>
-   
-
+    <iframe id="contentFrame" frameBorder="0" allowfullscreen></iframe>
+    <div id="dialogWrap">
+        <div id="dialogWrapCell">
+            <div id="mainDialog">
+                <div id="dialogText">This page is password protected.</div>
+                <div id="passArea">
+                    <p id="passwordPrompt">Password</p>
+                    <input id="pass" type="password" name="pass" autofocus>
+                    <div>
+                        <span id="messageWrapper">
+                            <span id="invalidPass" class="error">Sorry, please try again.</span>
+                            <span id="trycatcherror" class="error">Sorry, something went wrong.</span>
+                            <span id="success" class="notifyText">Success!</span>
+                            &nbsp;
+                        </span>
+                        <button id="submitPass" type="button">Submit</button>
+                        <div style="clear: both;"></div>
+                    </div>
+                </div>
+                <div id="securecontext" class="error">
+                    <p>
+                        Sorry, but password protection only works over a secure connection. Please load this page via HTTPS.
+                    </p>
+                </div>
+                <div id="nocrypto" class="error">
+                    <p>
+                        Your web browser appears to be outdated. Please visit this page using a modern browser.
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
-
-
-
-
-
-
-
     <script>
-    function myFunction() {
-      var x = document.getElementById("myDIV");
-      if (x.style.display === "block") {
-        x.style.display = "none";
-      } else {
-        x.style.display = "block";
-      }
-    }
+    (function() {
+
+        var pl = "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";
+        
+        var submitPass = document.getElementById('submitPass');
+        var passEl = document.getElementById('pass');
+        var invalidPassEl = document.getElementById('invalidPass');
+        var trycatcherror = document.getElementById('trycatcherror');
+        var successEl = document.getElementById('success');
+        var contentFrame = document.getElementById('contentFrame');
+        
+        // Sanity checks
+
+        if (pl === "") {
+            submitPass.disabled = true;
+            passEl.disabled = true;
+            alert("This page is meant to be used with the encryption tool. It doesn't work standalone.");
+            return;
+        }
+
+        if (!isSecureContext) {
+            document.querySelector("#passArea").style.display = "none";
+            document.querySelector("#securecontext").style.display = "block";
+            return;
+        }
+
+        if (!crypto.subtle) {
+            document.querySelector("#passArea").style.display = "none";
+            document.querySelector("#nocrypto").style.display = "block";
+            return;
+        }
+        
+        function str2ab(str) {
+            var ustr = atob(str);
+            var buf = new ArrayBuffer(ustr.length);
+            var bufView = new Uint8Array(buf);
+            for (var i=0, strLen=ustr.length; i < strLen; i++) {
+                bufView[i] = ustr.charCodeAt(i);
+            }
+            return bufView;
+        }
+
+        async function deriveKey(salt, password) {
+            const encoder = new TextEncoder()
+            const baseKey = await crypto.subtle.importKey(
+                'raw',
+                encoder.encode(password),
+                'PBKDF2',
+                false,
+                ['deriveKey'],
+            )
+            return await crypto.subtle.deriveKey(
+                { name: 'PBKDF2', salt, iterations: 100000, hash: 'SHA-256' },
+                baseKey,
+                { name: 'AES-GCM', length: 256 },
+                true,
+                ['decrypt'],
+            )
+        }
+        
+        async function doSubmit(evt) {
+            submitPass.disabled = true;
+            passEl.disabled = true;
+
+            let iv, ciphertext, key;
+            
+            try {
+                var unencodedPl = str2ab(pl);
+
+                const salt = unencodedPl.slice(0, 32)
+                iv = unencodedPl.slice(32, 32 + 16)
+                ciphertext = unencodedPl.slice(32 + 16)
+
+                key = await deriveKey(salt, passEl.value);
+            } catch (e) {
+                trycatcherror.style.display = "inline";
+                console.error(e);
+                return;
+            }
+
+            try {
+                const decryptedArray = new Uint8Array(
+                    await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, ciphertext)
+                );
+
+                let decrypted = new TextDecoder().decode(decryptedArray);
+
+                if (decrypted === "") throw "No data returned";
+
+                const basestr = '<base href="." target="_top">';
+                const anchorfixstr = `
+                    <script>
+                        Array.from(document.links).forEach((anchor) => {
+                            const href = anchor.getAttribute("href");
+                            if (href.startsWith("#")) {
+                                anchor.addEventListener("click", function(e) {
+                                    e.preventDefault();
+                                    const targetId = this.getAttribute("href").substring(1);
+                                    const targetEl = document.getElementById(targetId);
+                                    targetEl.scrollIntoView();
+                                });
+                            }
+                        });
+                    <\/script>
+                `;
+                
+                // Set default iframe link targets to _top so all links break out of the iframe
+                if (decrypted.includes("<head>")) decrypted = decrypted.replace("<head>", "<head>" + basestr);
+                else if (decrypted.includes("<!DOCTYPE html>")) decrypted = decrypted.replace("<!DOCTYPE html>", "<!DOCTYPE html>" + basestr);
+                else decrypted = basestr + decrypted;
+
+                // Fix fragment links
+                if (decrypted.includes("</body>")) decrypted = decrypted.replace("</body>", anchorfixstr + '</body>');
+                else if (decrypted.includes("</html>")) decrypted = decrypted.replace("</html>", anchorfixstr + '</html>');
+                else decrypted = decrypted + anchorfixstr;
+                
+                contentFrame.srcdoc = decrypted;
+                
+                successEl.style.display = "inline";
+                setTimeout(function() {
+                    dialogWrap.style.display = "none";
+                }, 1000);
+            } catch (e) {
+                invalidPassEl.style.display = "inline";
+                passEl.value = "";
+                submitPass.disabled = false;
+                passEl.disabled = false;
+                console.error(e);
+                return;
+            }
+        }
+        
+        submitPass.onclick = doSubmit;
+        passEl.onkeypress = function(e){
+            if (!e) e = window.event;
+            var keyCode = e.keyCode || e.which;
+            invalidPassEl.style.display = "none";
+            if (keyCode == '13'){
+              // Enter pressed
+              doSubmit();
+              return false;
+            }
+        }
+    })();
     </script>
-
-
-    <script>
-        $('#button').on('click', function(){ 
-      var jam = $('#jam1').val()
-      var tanggal = $('#tanggal1').val()
-      var url = 'https://persuratan.atrbpn.go.id/Account/simpanPresensi?pLong=105.525769&pLat=-5.044095&pWaktu='+tanggal+'+'+jam+'&pAcc=2&pIp=180.251.77.253'
-      $('form').attr('action', url); //this fails silently
-    })
-    </script>
-
   </body>
 </html>
-
-
-
